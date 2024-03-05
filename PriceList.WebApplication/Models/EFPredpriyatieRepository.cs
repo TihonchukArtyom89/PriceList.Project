@@ -1,6 +1,6 @@
 ﻿namespace PriceList.WebApplication.Models;
 
-public class EFPredpriyatieRepository
+public class EFPredpriyatieRepository:IPredpriyatieRepository
 {
     private PredpriyatieDbContext context;
     public EFPredpriyatieRepository(PredpriyatieDbContext ctx)
