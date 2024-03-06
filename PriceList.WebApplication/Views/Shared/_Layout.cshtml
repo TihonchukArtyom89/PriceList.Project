@@ -1,12 +1,19 @@
 ﻿<!DOCTYPE html>
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width">
-        <title>Редактор прайс-листов предприятия</title>        
-    </head>
-    <body>
-        <div>
+<head>
+    <meta name="viewport" content="width=device-width">
+    <title>Редактор прайс-листов предприятия</title>
+    <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="bg-dark text-white p-2">
+        <span class="navbar-brand ml-2">РЕДАКТОР ПРАЙС - ЛИСТОВ ПРЕДПРИЯТИЯ</span>
+    </div>
+    <div class="row m-1 p-1">
+        <div id="categories" class="col-3">ЗДЕСЬ БУДЕТ ПЕРЕКЛЮЧЕНИЕ ПО КАТЕГОРИЯМ ТОВАРОВ(Сделать позже)</div>
+        <div class="col-9">
             @RenderBody()
         </div>
-    </body>
+    </div>
+</body>
 </html>
