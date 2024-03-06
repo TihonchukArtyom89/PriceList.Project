@@ -9,6 +9,6 @@ builder.Services.AddScoped<IPredpriyatieRepository, EFPredpriyatieRepository>();
 var app = builder.Build();
 app.UseStaticFiles();
 app.MapDefaultControllerRoute();
-//app.MapGet("/", () => "Hello World!");
+SeedData.EnsurePopulated(app);//fill db with sample data
 
 app.Run();

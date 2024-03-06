@@ -7,12 +7,20 @@ public static class SeedData
     public static void EnsurePopulated(IApplicationBuilder app)
     {
         PredpriyatieDbContext context = app.ApplicationServices.CreateScope().ServiceProvider.GetRequiredService<PredpriyatieDbContext>();
-        if(context.Database.GetPendingMigrations().Any())
+        try
         {
-            context.Database.Migrate();
+            if (context.Database.GetPendingMigrations().Any())
+            {
+                context.Database.Migrate();
+            }
+        }
+        catch (Exception ex) 
+        {
+            WriteLine(ex.Message.ToString());
         }
         if(!context.Products.Any())
         {
+            //fill Products Table
             context.Products.AddRange(
                 new Product { ProductName="Стул", ProductCategory = "Мебель", ProductDescription = "Обычный стул", ProductPrice = 1547.04m},
                 new Product { ProductName = "Яблоко", ProductCategory = "Фрукты", ProductDescription = "Красное,наливное", ProductPrice = 196.67m},
