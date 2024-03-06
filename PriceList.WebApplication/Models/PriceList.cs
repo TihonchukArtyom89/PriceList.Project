@@ -1,14 +1,18 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Dynamic;
 
 namespace PriceList.WebApplication.Models;
-
-public class PriceList
+//класс для формирования таблицы в бд посвящённой прайс-листам товаров
+public class PriceList 
 {
-    public long? PriceListID { get; set; }
-    public string PriceListName { get; set; } = String.Empty;
-    public DateTime PriceListDateCreation { get; set; }
-    public DateTime PriceListDateModyfycation { get; set; }
-    //public long[] PriceListProductIDs { get; set; } = Array.Empty<long>();//массив ид продуктов в этом прайс листе
-    /*добавление новых столбцов с разными типами данных реализовать через метод массив? список? коллекция?*/
+    public long? PriceListID { get; set; } //ИД прайс листа//уникальный,первичный ключ
+    public string PriceListName { get; set; } = String.Empty; //название прайс листа
+    public DateTime PriceListDateCreation { get; set; }  //дата создания прайс листа
+    public DateTime PriceListDateModyfycation { get; set; } //дата изменения прайс листа
+
+    //поле для списка товаров в этом прайс листе //коллекция или что то там в этом роде (обязательные параметры прайс листа это ид товара и его название)
+
+    //поле для коллекции-словаря необязательных параметров (ид ключ необязательного параметра - название необязательного параметра)
+
 }
