@@ -1,1 +1,12 @@
-﻿<h4> Добро пожаловать на главную страницу редактора прайс-листов предприятия! </h4>
+﻿@model IQueryable<Product>
+
+<h4> Добро пожаловать на главную страницу редактора прайс-листов предприятия! </h4>
+
+@foreach (var p in Model ?? Enumerable.Empty<Product>())
+{
+    <div>
+        <h3>@p.ProductName</h3>
+        @p.ProductDescription
+        <h4>@p.ProductPrice.ToString("c")</h4>
+    </div>
+}
