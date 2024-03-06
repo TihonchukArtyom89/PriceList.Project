@@ -1,8 +1,8 @@
-﻿@model IQueryable<Product>
+﻿@model ProductsListViewModels
 
 <h4> Добро пожаловать на главную страницу редактора прайс-листов предприятия! </h4>
 
-@foreach (var p in Model ?? Enumerable.Empty<Product>())
+@foreach (var p in Model?.Products ?? Enumerable.Empty<Product>())
 {
     <div>
         <h3>@p.ProductName</h3>
@@ -10,3 +10,4 @@
         <h4>@p.ProductPrice.ToString("c")</h4>
     </div>
 }
+<div page-model="@Model?.PagingInfo" page-action="Index"></div>
