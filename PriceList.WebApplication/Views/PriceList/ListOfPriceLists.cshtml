@@ -1,0 +1,30 @@
+﻿@model ListOfPriceListsViewModels
+
+<h4> ПРАЙС ЛИСТЫ </h4>
+<div>
+    <div> Кнопка добавления нового прайс листа </div>
+</div>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>№</th>
+            <th>Название</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var line in Model?.PriceLists ?? Enumerable.Empty<PriceList>())
+        {
+            <tr>
+                <td class="text-left">@line.PriceListID</td>
+                <td class="text-right">@line.PriceListName (название ссылкой на страницу прайс листа со списком товаров в нём)</td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right"> </td>
+            <td class="text-right"></td>
+        </tr>
+    </tfoot>
+</table>
+<div page-model="@Model?.PagingInfo" page-action="ListOfPriceLists" page-classes-enabled="true" page-class="btn" page-class-normal="btn-outline-dark" page-class-selected="btn-primary" class="btn-group pull-right m-1"></div>
