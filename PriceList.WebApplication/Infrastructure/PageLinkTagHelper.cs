@@ -21,7 +21,7 @@ public class PageLinkTagHelper:TagHelper
     public ViewContext? ViewContext { get; set; }   
     public PagingInfo? PageModel { get; set; }
     public string? PageAction { get; set; }
-    public bool PageClassEnabled { get; set; }=false;
+    public bool PageClassesEnabled { get; set; }=false;
     public string PageClass { get; set; } = string.Empty;
     public string PageClassNormal { get; set; } = string.Empty;
     public string PageClassSelected { get; set; } = string.Empty;
@@ -36,7 +36,7 @@ public class PageLinkTagHelper:TagHelper
             {
                 TagBuilder tagLink = new("a");
                 tagLink.Attributes["href"] = urlHelper.Action(PageAction, new { productPage = i });
-                if(PageClassEnabled) 
+                if(PageClassesEnabled) 
                 {
                     tagLink.AddCssClass(PageClass);
                     tagLink.AddCssClass(i==PageModel.CurrentPage ? PageClassSelected : PageClassNormal);
