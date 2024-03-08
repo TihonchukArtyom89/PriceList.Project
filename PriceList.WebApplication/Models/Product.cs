@@ -5,7 +5,9 @@ namespace PriceList.WebApplication.Models;
 //класс для формирования таблицы в бд посвящённой товарам
 public class Product
 {
+    [Required]
     public long? ProductID { get; set; } //ИД товара//уникальный,первичный ключ
+    [Required(ErrorMessage ="Name of product is required.")]
     public string ProductName { get; set; } = string.Empty; //название товара
     public string ProductDescription { get; set; } = string.Empty; //описание товара
     public string ProductCategory { get; set; } = string.Empty; //категория товара
