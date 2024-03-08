@@ -1,10 +1,10 @@
 ﻿@model ListOfPriceListsViewModels
 
-<h4> ПРАЙС ЛИСТЫ </h4>
-<div>
-    <div> Кнопка добавления нового прайс листа </div>
-</div>
-<table class="table table-bordered table-striped">
+<span class="mx-5">
+    <h4 class="card-text mx-1"> ПРАЙС ЛИСТЫ </h4>
+    <button class="btn btn-primary mx-1">Добавить новый прайс лист</button>
+</span>
+<table class="table table-bordered table-striped m-1">
     <thead>
         <tr>
             <th>ИД</th>
@@ -13,7 +13,7 @@
     </thead>
     <tbody>
         @foreach (var line in Model?.PriceLists ?? Enumerable.Empty<PriceList>())
-        {
+        {//сделать частичное представление по аналогу с продакт саммари
             <tr>
                 <td class="text-left">@line.PriceListID</td>
                 <td class="text-right">@line.PriceListName (название ссылкой на страницу прайс листа со списком товаров в нём)</td>
