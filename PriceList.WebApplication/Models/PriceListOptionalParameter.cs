@@ -5,7 +5,7 @@ namespace PriceList.WebApplication.Models;
 //класс для формирования таблицы в бд посвящённой необязательным параметрам прайс-листа товаров(EAV модель данных)
 public class PriceListOptionalParameter
 {
-    [Key]
+    [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Required]
     public long? OptionalParameterEntryID { get; set; }//ид сущности необязательного параметра для конкретного товара в определённом прайс листе//уникальный,первичный ключ
     [Required]

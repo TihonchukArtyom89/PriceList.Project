@@ -5,7 +5,7 @@ namespace PriceList.WebApplication.Models;
 //класс для формирования таблицы в бд посвящённой товарам
 public class Product
 {
-    [Key]
+    [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Required]
     public long? ProductID { get; set; } //ИД товара//уникальный,первичный ключ
     [Required(ErrorMessage ="Name of product is required.")]
