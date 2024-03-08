@@ -5,6 +5,7 @@ namespace SportsStore.Models;
 //класс для формирования справочной таблицы для необязательных параметров (ид,тип, название)
 public class OptionalParameter
 {
+    [Key]
     [Required]
     public long? OptionalParameterID { get; set; }//ид необязательного параметра для прайс листа//уникальный,первичный ключ
     [Required(ErrorMessage = "Type is required.")]

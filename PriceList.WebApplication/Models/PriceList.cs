@@ -5,6 +5,7 @@ namespace PriceList.WebApplication.Models;
 //класс для формирования таблицы в бд посвящённой прайс-листам товаров
 public class PriceList 
 {
+    [Key]
     [Required]
     public long? PriceListID { get; set; } //ИД прайс листа//уникальный,первичный ключ
     [Required(ErrorMessage = "Name of pricelist is required.")]
