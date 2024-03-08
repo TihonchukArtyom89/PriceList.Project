@@ -6,15 +6,12 @@
     <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="bg-dark text-white p-2">
-        <span class="navbar-brand ml-2">РЕДАКТОР ПРАЙС - ЛИСТОВ ПРЕДПРИЯТИЯ</span>
-        <div class="text-white">
-            <a asp-controller="Home" asp-action="Index">Товары</a>
-            <a asp-controller="PriceList" asp-action="ListOfPriceLists">Прайс листы</a>
-        </div>
+    <div class="bg-dark text-white p-2 text-white">
+        <div style="display:inline-block"class="mx-3"><span class="navbar-brand ml-2">РЕДАКТОР ПРАЙС - ЛИСТОВ ПРЕДПРИЯТИЯ</span></div>
+        <div style="display:inline-block" class="mx-2"><a class="btn btn-secondary" asp-controller="Home" asp-action="Index">Товары</a></div>
+        <div style="display:inline-block" class="mx-2"><a class="btn btn-secondary" asp-controller="PriceList" asp-action="ListOfPriceLists">Прайс листы</a></div>
     </div>
     <div class="row m-1 p-1">
-        @* <div id="categories" class="col-3">ЗДЕСЬ БУДЕТ ПЕРЕКЛЮЧЕНИЕ ПО КАТЕГОРИЯМ ТОВАРОВ(Сделать позже)</div> *@
         <div class="col-12">
             @RenderBody()
         </div>

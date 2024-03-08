@@ -1,9 +1,9 @@
 ﻿@model Product
 
-<div class="card card-outline-primary m-1 p-1">
+<div class="card card-primary m-1 p-1">
     <div class="bg-faded p-1">
         <h4>
-            @Model.ProductName
+             @Model.ProductName
             <span class="badge rounded-pill bg-primary text-white" style="float:right">
                 <small>
                     @Model.ProductPrice.ToString("c")
@@ -13,5 +13,9 @@
     </div>
     <div class="card-text p-1">
         @Model.ProductDescription
+    </div>
+    <div class="m-3">
+        <button class="btn btn-danger mx-2" style="float:right">Удалить этот товар</button>
+        <button class="btn btn-warning mx-2" style="float:right">Редактировать этот товар</button>        
     </div>
 </div>

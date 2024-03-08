@@ -1,7 +1,11 @@
 ﻿@model ProductsListViewModels
 
-<h4> ТОВАРЫ </h4>
 
+
+<span class="mx-2">
+    <h4 class="card-text mx-1"> ТОВАРЫ </h4>
+    <button class="btn btn-primary mx-1">Добавить новый товар</button>
+</span>
 @foreach (var p in Model?.Products ?? Enumerable.Empty<Product>())
 {
     <partial name="ProductSummary" model="p" />
