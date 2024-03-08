@@ -6,11 +6,10 @@ namespace PriceList.WebApplication.Models;
 public class PriceListOptionalParameter
 {
     [Required]
-    public long? OptionalParameterID { get; set; }
-    public string OptionalParameterName { get; set; } = string.Empty;//сделать ещё одну справочную таблицу под необязательные параметры наподобие справочной таблицы типов
+    public long? OptionalParameterEntryID { get; set; }//ид сущности необязательного параметра для конкретного товара в определённом прайс листе//уникальный,первичный ключ
     [Required]
-    public long? OptionalParameterTypeID { get; set; }
-    public string OptionalParameterValue { get; set; } = string.Empty;
+    public long? OptionalParameterID { get; set; }//ид необязательного параметра для конкретного товара в определённом прайс листе
+    public string OptionalParameterValue { get; set; } = string.Empty;//значение необязательного параметра для конкретного товара в определённом прайс листе
     [Required]
-    public long? PriceListLineID { get; set; }
+    public long? PriceListLineID { get; set; }//ид позиции в определённом прайс листе для конкретного товара
 }
