@@ -15,6 +15,6 @@ public class Product
 
     [Column(TypeName ="decimal(8,2)")]
     public decimal ProductPrice { get; set; } //цена товара
-    [ForeignKey("ProductID")]
-    public List<PriceListProduct> PriceListProducts { get; set; } = new();//навигационное св-во на таблицу продуктов
+    //[ForeignKey("ProductID")]
+    public List<PriceListProduct> PriceListProducts { get; set; } = new();//навигационное св-во на таблицу продуктов прайс листа
 }

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SportsStore.Models;
+using PriceList.WebApplication.Models;
 
 namespace PriceList.WebApplication.Models;
 
