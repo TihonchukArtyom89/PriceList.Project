@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PriceList.WebApplication.Models;
 
@@ -11,9 +12,10 @@ using PriceList.WebApplication.Models;
 namespace PriceList.WebApplication.Migrations
 {
     [DbContext(typeof(PredpriyatieDbContext))]
-    partial class PredpriyatieDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240308151828_Complete5Tablesv12")]
+    partial class Complete5Tablesv12
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -121,15 +123,15 @@ namespace PriceList.WebApplication.Migrations
 
             modelBuilder.Entity("PriceListPriceListProduct", b =>
                 {
-                    b.Property<long>("PriceListID")
-                        .HasColumnType("bigint");
-
                     b.Property<long>("PriceListProductsPriceListLineID")
                         .HasColumnType("bigint");
 
-                    b.HasKey("PriceListID", "PriceListProductsPriceListLineID");
+                    b.Property<long>("PriceListsPriceListID")
+                        .HasColumnType("bigint");
 
-                    b.HasIndex("PriceListProductsPriceListLineID");
+                    b.HasKey("PriceListProductsPriceListLineID", "PriceListsPriceListID");
+
+                    b.HasIndex("PriceListsPriceListID");
 
                     b.ToTable("PriceListPriceListProduct");
                 });
@@ -139,12 +141,12 @@ namespace PriceList.WebApplication.Migrations
                     b.Property<long>("PriceListProductsPriceListLineID")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("ProductID")
+                    b.Property<long>("ProductsProductID")
                         .HasColumnType("bigint");
 
-                    b.HasKey("PriceListProductsPriceListLineID", "ProductID");
+                    b.HasKey("PriceListProductsPriceListLineID", "ProductsProductID");
 
-                    b.HasIndex("ProductID");
+                    b.HasIndex("ProductsProductID");
 
                     b.ToTable("PriceListProductProduct");
                 });
@@ -172,15 +174,15 @@ namespace PriceList.WebApplication.Migrations
 
             modelBuilder.Entity("PriceListPriceListProduct", b =>
                 {
-                    b.HasOne("PriceList.WebApplication.Models.PriceList", null)
-                        .WithMany()
-                        .HasForeignKey("PriceListID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("PriceList.WebApplication.Models.PriceListProduct", null)
                         .WithMany()
                         .HasForeignKey("PriceListProductsPriceListLineID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PriceList.WebApplication.Models.PriceList", null)
+                        .WithMany()
+                        .HasForeignKey("PriceListsPriceListID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -195,7 +197,7 @@ namespace PriceList.WebApplication.Migrations
 
                     b.HasOne("PriceList.WebApplication.Models.Product", null)
                         .WithMany()
-                        .HasForeignKey("ProductID")
+                        .HasForeignKey("ProductsProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

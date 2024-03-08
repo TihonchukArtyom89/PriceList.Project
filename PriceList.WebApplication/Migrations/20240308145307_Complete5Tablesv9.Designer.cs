@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PriceList.WebApplication.Models;
 
@@ -11,9 +12,10 @@ using PriceList.WebApplication.Models;
 namespace PriceList.WebApplication.Migrations
 {
     [DbContext(typeof(PredpriyatieDbContext))]
-    partial class PredpriyatieDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240308145307_Complete5Tablesv9")]
+    partial class Complete5Tablesv9
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -124,27 +126,27 @@ namespace PriceList.WebApplication.Migrations
                     b.Property<long>("PriceListID")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("PriceListProductsPriceListLineID")
+                    b.Property<long>("PriceListsPriceListID")
                         .HasColumnType("bigint");
 
-                    b.HasKey("PriceListID", "PriceListProductsPriceListLineID");
+                    b.HasKey("PriceListID", "PriceListsPriceListID");
 
-                    b.HasIndex("PriceListProductsPriceListLineID");
+                    b.HasIndex("PriceListsPriceListID");
 
                     b.ToTable("PriceListPriceListProduct");
                 });
 
             modelBuilder.Entity("PriceListProductProduct", b =>
                 {
-                    b.Property<long>("PriceListProductsPriceListLineID")
-                        .HasColumnType("bigint");
-
                     b.Property<long>("ProductID")
                         .HasColumnType("bigint");
 
-                    b.HasKey("PriceListProductsPriceListLineID", "ProductID");
+                    b.Property<long>("ProductsProductID")
+                        .HasColumnType("bigint");
 
-                    b.HasIndex("ProductID");
+                    b.HasKey("ProductID", "ProductsProductID");
+
+                    b.HasIndex("ProductsProductID");
 
                     b.ToTable("PriceListProductProduct");
                 });
@@ -172,15 +174,15 @@ namespace PriceList.WebApplication.Migrations
 
             modelBuilder.Entity("PriceListPriceListProduct", b =>
                 {
-                    b.HasOne("PriceList.WebApplication.Models.PriceList", null)
+                    b.HasOne("PriceList.WebApplication.Models.PriceListProduct", null)
                         .WithMany()
                         .HasForeignKey("PriceListID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PriceList.WebApplication.Models.PriceListProduct", null)
+                    b.HasOne("PriceList.WebApplication.Models.PriceList", null)
                         .WithMany()
-                        .HasForeignKey("PriceListProductsPriceListLineID")
+                        .HasForeignKey("PriceListsPriceListID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -189,13 +191,13 @@ namespace PriceList.WebApplication.Migrations
                 {
                     b.HasOne("PriceList.WebApplication.Models.PriceListProduct", null)
                         .WithMany()
-                        .HasForeignKey("PriceListProductsPriceListLineID")
+                        .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("PriceList.WebApplication.Models.Product", null)
                         .WithMany()
-                        .HasForeignKey("ProductID")
+                        .HasForeignKey("ProductsProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

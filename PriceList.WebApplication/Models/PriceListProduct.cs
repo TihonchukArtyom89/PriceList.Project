@@ -12,5 +12,11 @@ public class PriceListProduct
     [Required]
     public long? PriceListID { get; set; }//ид прайс листа
     [Required]
+    //[ForeignKey("PriceListID")]
+    public List<PriceList> PriceLists { get; set; } = new();//навигационное св-во на таблицу прайс листов    
+    [Required]
     public long? ProductID { get; set; }//ид товара в прайс листе
+    [Required]
+    //[ForeignKey("ProductID")]
+    public List<Product> Products { get; set; } = new();//навигационное св-во на таблицу продуктов
 }

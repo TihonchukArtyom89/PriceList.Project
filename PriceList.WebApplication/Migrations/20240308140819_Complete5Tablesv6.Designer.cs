@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PriceList.WebApplication.Models;
 
@@ -11,9 +12,10 @@ using PriceList.WebApplication.Models;
 namespace PriceList.WebApplication.Migrations
 {
     [DbContext(typeof(PredpriyatieDbContext))]
-    partial class PredpriyatieDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240308140819_Complete5Tablesv6")]
+    partial class Complete5Tablesv6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,8 +29,6 @@ namespace PriceList.WebApplication.Migrations
                     b.Property<long?>("PriceListID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("PriceListID"), 1L, 1);
 
                     b.Property<DateTime>("PriceListDateCreation")
                         .HasColumnType("datetime2");
@@ -78,10 +78,6 @@ namespace PriceList.WebApplication.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("PriceListLineID"), 1L, 1);
 
-                    b.Property<long?>("PriceListID")
-                        .IsRequired()
-                        .HasColumnType("bigint");
-
                     b.Property<long?>("ProductID")
                         .IsRequired()
                         .HasColumnType("bigint");
@@ -119,36 +115,6 @@ namespace PriceList.WebApplication.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("PriceListPriceListProduct", b =>
-                {
-                    b.Property<long>("PriceListID")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("PriceListProductsPriceListLineID")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("PriceListID", "PriceListProductsPriceListLineID");
-
-                    b.HasIndex("PriceListProductsPriceListLineID");
-
-                    b.ToTable("PriceListPriceListProduct");
-                });
-
-            modelBuilder.Entity("PriceListProductProduct", b =>
-                {
-                    b.Property<long>("PriceListProductsPriceListLineID")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("ProductID")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("PriceListProductsPriceListLineID", "ProductID");
-
-                    b.HasIndex("ProductID");
-
-                    b.ToTable("PriceListProductProduct");
-                });
-
             modelBuilder.Entity("SportsStore.Models.OptionalParameter", b =>
                 {
                     b.Property<long?>("OptionalParameterID")
@@ -170,34 +136,18 @@ namespace PriceList.WebApplication.Migrations
                     b.ToTable("OptionalParameters");
                 });
 
-            modelBuilder.Entity("PriceListPriceListProduct", b =>
+            modelBuilder.Entity("PriceList.WebApplication.Models.PriceList", b =>
                 {
-                    b.HasOne("PriceList.WebApplication.Models.PriceList", null)
-                        .WithMany()
-                        .HasForeignKey("PriceListID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("PriceList.WebApplication.Models.PriceListProduct", null)
-                        .WithMany()
-                        .HasForeignKey("PriceListProductsPriceListLineID")
+                        .WithMany("PriceLists")
+                        .HasForeignKey("PriceListID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PriceListProductProduct", b =>
+            modelBuilder.Entity("PriceList.WebApplication.Models.PriceListProduct", b =>
                 {
-                    b.HasOne("PriceList.WebApplication.Models.PriceListProduct", null)
-                        .WithMany()
-                        .HasForeignKey("PriceListProductsPriceListLineID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PriceList.WebApplication.Models.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("PriceLists");
                 });
 #pragma warning restore 612, 618
         }

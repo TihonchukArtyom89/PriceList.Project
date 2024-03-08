@@ -12,4 +12,6 @@ public class PriceList
     public string PriceListName { get; set; } = String.Empty; //название прайс листа
     public DateTime PriceListDateCreation { get; set; }  //дата создания прайс листа
     public DateTime PriceListDateModyfycation { get; set; } //дата изменения прайс листа
+    [ForeignKey("PriceListID")]
+    public List<PriceListProduct> PriceListProducts { get; set; } = new();
 }
