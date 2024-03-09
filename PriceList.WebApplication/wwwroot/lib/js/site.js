@@ -5,9 +5,9 @@ showInPopUp = (url, title) => {
             url: url,
             success: function (res)
             {
-                $("#addProduct .modal-body").html(res);
-                $("#addProduct .modal-title").html(title);
-                $("#addProduct").modal('show');
+                $("#addProductClick .modal-body").html(res);
+                $("#addProductClick .modal-title").html(title);
+                $("#addProductClick").modal('show');
             }
         })
 }
