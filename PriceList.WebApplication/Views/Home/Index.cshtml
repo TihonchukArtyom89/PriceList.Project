@@ -4,13 +4,19 @@
 
 <div class="mx-1">
     <h4 class="card-text "> ТОВАРЫ </h4>
-    <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#addProduct">Добавить новый товар</button>
+    @* <button id="addProductClick" class="btn btn-primary mb-2" data-toggle="modal" data-target="#addProduct">Добавить новый товар</button> *@
+    <button id="addProductClick" class="btn btn-primary mb-2" onclick="showInPopUp('@Url.Action("CreateProduct","Home",null,Context.Request.Scheme)','Новый Товар!!!')">Добавить новый товар</button>
 </div>
+@* <div id="placeHolder"></div> *@
 @foreach (var p in Model?.Products ?? Enumerable.Empty<Product>())
 {
     <partial name="ProductSummary" model="p" />
 }
 <div page-model="@Model?.PagingInfo" page-action="Index" page-classes-enabled="true" page-class="btn" page-class-normal="btn-outline-dark" page-class-selected="btn-primary" class="btn-group pull-right m-1"></div>
 
+
+<partial name="ProductForm" model="new Product()" />
+
 @await Html.PartialAsync("ProductForm", new Product())
-@* <partial name="ProductForm" model="new Product()" /> *@
+ 
+
