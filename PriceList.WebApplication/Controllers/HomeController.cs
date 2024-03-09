@@ -28,4 +28,9 @@ public class HomeController : Controller
             }
         }); 
     }
+    public IActionResult CreateProduct()
+    {
+        Product newProduct = new();
+        return PartialView("ProductForm",newProduct);
+    }
 }
