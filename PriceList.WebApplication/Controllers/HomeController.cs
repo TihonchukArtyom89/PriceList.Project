@@ -28,9 +28,20 @@ public class HomeController : Controller
             }
         }); 
     }
-    public IActionResult CreateProduct()
+    //same view for create or edit product
+    //for create we need call this action without parameter
+    public IActionResult CreateOrUpdate(long? id=0)
     {
-        Product newProduct = new();
-        return PartialView("ProductForm",newProduct);
+        Product product;
+        if(id == 0)
+        {
+            product = new();
+        }
+        else
+        {
+            product = storeRepository.Products.FirstOrDefault(p => p.ProductID == id) ?? new();
+        }
+        //return PartialView("ProductForm",newProduct);
+        return PartialView("ProductForm", product);
     }
 }
