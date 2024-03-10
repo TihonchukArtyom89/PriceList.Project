@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PriceList.WebApplication.Models;
 using PriceList.WebApplication.Models.ViewModels;
 
@@ -14,34 +15,41 @@ public class HomeController : Controller
         storeRepository = _storeRepository;
     }
 
-    public ViewResult Index(int productPage=1)
+    public ViewResult Index(int productPage = 1)
     {
         //return View(_storeRepository.Products.OrderBy(p=>p.ProductID).Skip((productPage-1)*PageSize).Take(PageSize));
         return View(new ProductsListViewModels
         {
             Products = storeRepository.Products.OrderBy(p => p.ProductID).Skip((productPage - 1) * PageSize).Take(PageSize),
-            PagingInfo = new PagingInfo 
+            PagingInfo = new PagingInfo
             {
                 CurrentPage = productPage,
                 ItemsPerPage = PageSize,
-                TotalItems = storeRepository.Products.Count()  
+                TotalItems = storeRepository.Products.Count()
             }
-        }); 
+        });
     }
     //same view for create or edit product
     //for create we need call this action without parameter
-    public IActionResult CreateOrUpdate(long? id=0)
+    public async Task<IActionResult> CreateOrUpdate(long? id = 0)
     {
         Product product;
-        if(id == 0)
+        if (id == 0)
         {
             product = new();
         }
         else
         {
-            product = storeRepository.Products.FirstOrDefault(p => p.ProductID == id) ?? new();
+            product = await storeRepository.Products.FirstOrDefaultAsync(p => p.ProductID == id) ?? new();
+            //product = await storeRepository.Products.FindAsync(id);
         }
         //return PartialView("ProductForm",newProduct);
-        return PartialView("ProductForm", product);
+        return View("ProductForm", product);
+        //if (id == null)
+        //{
+        //    return NotFound();
+        //}
+        //else
+        //{      
     }
 }
