@@ -6,8 +6,8 @@ function showInPopUp(url, title) {
             $("#form-modal .modal-body").html(response);
             $("#form-modal .modal-title").html(title);
             $("#form-modal").modal('show');
-            console.log(response);
-            console.log(title);
+            //console.log(response);
+            //console.log(title);
         },
         error: function (response) {
             console.log(response);
