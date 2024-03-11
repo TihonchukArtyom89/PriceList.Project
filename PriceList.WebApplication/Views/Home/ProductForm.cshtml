@@ -1,8 +1,8 @@
 ﻿@model Product
-@* @{
+@{
     Layout = null;
-} *@
-@* <div class="row" id="ProductForm">
+}
+<div class="row" id="ProductForm">
     <div class="col-md-4">
         <form asp-action="CreateOrUpdate">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -31,52 +31,5 @@
                 <input type="submit" value="Сохранить" class="btn btn-primary btn-block" />
             </div>
         </form>
-    </div>
-</div> *@
-
-
-
-
-<div class="modal" role="dialog" tabindex="-1" id="form-modal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"></h5> @* here display various title of modal popup(create,edit) *@
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row" id="ProductForm">
-                    <div class="col-md-4">
-                        <form asp-action="CreateOrUpdate">
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <input type="hidden" asp-for="ProductID" />
-                            <div class="form-group">
-                                <label asp-for="ProductName" class="control-label"></label>
-                                <input asp-for="ProductName" class="form-control" />
-                                <span asp-validation-for="ProductName" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="ProductCategory" class="control-label"></label>
-                                <input asp-for="ProductCategory" class="form-control" />
-                                <span asp-validation-for="ProductCategory" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="ProductDescription" class="control-label"></label>
-                                <input asp-for="ProductDescription" class="form-control" />
-                                <span asp-validation-for="ProductDescription" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="ProductPrice" class="control-label"></label>
-                                <input asp-for="ProductPrice" class="form-control" />
-                                <span asp-validation-for="ProductPrice" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" value="Сохранить" class="btn btn-primary btn-block" />
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>

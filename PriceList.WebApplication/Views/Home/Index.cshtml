@@ -4,21 +4,14 @@
 
 <div class="mx-1">
     <h4 class="card-text "> ТОВАРЫ </h4>
-    @* onclick="showInPopUp('@Url.Action("CreateOrUpdate", "Home", 0, Context.Request.Scheme)','Добавление нового товара в ассортимент предприятия')" *@
-    @* частично работает,но запутанно и с js  *@
-    <button onclick="showInPopUp('@Url.Action("CreateOrUpdate", "Home", 0, Context.Request.Scheme)','Добавление нового товара в ассортимент предприятия')" asp-controller="Home" asp-action="CreateOrUpdate(2)" class="btn btn-primary text-white mb-2" data-bs-toggle="modal" data-bs-target="#form-modal"> <i class="fa-solid  fa-plus"> Добавить новый товар</i></button>
+    <button onclick="showInPopUp('@Url.Action("CreateOrUpdate", "Home", 0, Context.Request.Scheme)','Добавление нового товара в ассортимент предприятия')" asp-controller="Home" asp-action="CreateOrUpdate(2)" class="btn btn-primary text-white mb-2" > <i class="fa-solid  fa-plus"> Добавить новый товар</i></button>
     
 </div>
-@* <div id="placeHolder"></div> *@
 @foreach (var p in Model?.Products ?? Enumerable.Empty<Product>())
 {
     <partial name="ProductSummary" model="p" />
 }
 <div page-model="@Model?.PagingInfo" page-action="Index" page-classes-enabled="true" page-class="btn" page-class-normal="btn-outline-dark" page-class-selected="btn-primary" class="btn-group pull-right m-1"></div>
 
-
-@* <partial name="ProductForm" model="new Product()" /> *@
-
-@await Html.PartialAsync("ProductForm", new Product())
  
 
