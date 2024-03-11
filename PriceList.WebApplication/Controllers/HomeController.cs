@@ -32,8 +32,13 @@ public class HomeController : Controller
     public IActionResult Create()
     {
         Product product = new();
-        //storeRepository.CreateProduct(product);
         return PartialView("ProductForm", product);
+    }
+    [HttpPost]
+    public IActionResult Create(Product product)
+    {//write unit tests for this action
+        storeRepository.CreateProduct(product);
+        return RedirectToAction("Index","Home");
     }
     //same view for create or edit product
     //for create we need call this action without parameter

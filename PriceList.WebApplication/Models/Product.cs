@@ -17,7 +17,7 @@ public class Product
     public string ProductDescription { get; set; } = string.Empty; //описание товара
     [DisplayName("Категория продукта")]
     [Required(ErrorMessage = "Category of product is required.")]
-    public string ProductCategory { get; set; } = string.Empty; //категория товара
+    public string ProductCategory { get; set; } = string.Empty; //категория товара//сделать отдельную справочную таблицу для категорий
     [DisplayName("Цена продукта")]
     [Required(ErrorMessage = "Price of product is required.")]
     [Range(0.01,double.MaxValue,ErrorMessage ="Enter a positive price")]
