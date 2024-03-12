@@ -25,21 +25,24 @@ public static class SeedData
             if (!context.Categories.Any())
             {
                 //code for insert sample data to table Categories(categories of product)//корректно передать кириллицу надо
-                int num = context.Database.ExecuteSqlRaw("insert into Categories (CategoryName) values ('" + CategoryName[0] + "'), ('" + CategoryName[1] + "')");
-                WriteLine("\n\n\n\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n\n" + num + "\n\n\n\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n\n");
+                //int num = context.Database.ExecuteSqlRaw("insert into Categories (CategoryName) values ('" + CategoryName[0] + "'), ('" + CategoryName[1] + "')");
+                context.Categories.AddRange(new Category { CategoryName = CategoryName[0] },new Category { CategoryName = CategoryName[1] });
+                //WriteLine("\n\n\n\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n\n" + num + "\n\n\n\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n\n");
                 context.SaveChanges();
             }
-            //get id from table Categoies
-            var CategoryID_Мебель = context.Categories.Where(c => c.CategoryName == "Мебель").Select(c => c.CategoryID).ToQueryString();
-            WriteLine("\n\n\n\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n\n" + CategoryID_Мебель + "\n\n\n\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n\n");
+            //get id from table Categories
+            Category? Category_Мебель = context.Categories.Where(c => c.CategoryName == CategoryName[0]).FirstOrDefault();
+            Category? Category_Фрукты = context.Categories.Where(c => c.CategoryName == CategoryName[1]).FirstOrDefault();
+            WriteLine("\n\n\n\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n\n" + Category_Мебель?.CategoryID+"\n----\n"+Category_Мебель?.CategoryName + "\n\n\n\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n\n");
+            WriteLine("\n\n\n\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n\n" + Category_Фрукты?.CategoryID + "\n----\n" + Category_Фрукты?.CategoryName + "\n\n\n\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n\n");
             //fill Products Table
             context.Products.AddRange(
-                new Product { ProductName = "Стул", ProductDescription = "Обычный стул", ProductPrice = 1547.04m, CategoryID = 1 },
-                new Product { ProductName = "Яблоко", ProductDescription = "Красное,наливное", ProductPrice = 196.67m, CategoryID = 2 },
-                new Product { ProductName = "Слива", ProductDescription = "Спелая,садовая", ProductPrice = 378.00m, CategoryID = 2 },
-                new Product { ProductName = "Стол", ProductDescription = "Для обеда в саду", ProductPrice = 3098.39m, CategoryID = 1 },
-                new Product { ProductName = "Груша", ProductDescription = "Можно скушать", ProductPrice = 247.07m, CategoryID = 2 },
-                new Product { ProductName = "Стол", ProductDescription = "Компьтерный стол", ProductPrice = 15999.98m, CategoryID = 1 }
+                new Product { ProductName = "Стул", ProductDescription = "Обычный стул", ProductPrice = 1547.04m, CategoryID = Category_Мебель?.CategoryID },
+                new Product { ProductName = "Яблоко", ProductDescription = "Красное,наливное", ProductPrice = 196.67m, CategoryID = Category_Фрукты?.CategoryID },
+                new Product { ProductName = "Слива", ProductDescription = "Спелая,садовая", ProductPrice = 378.00m, CategoryID = Category_Фрукты?.CategoryID },
+                new Product { ProductName = "Стол", ProductDescription = "Для обеда в саду", ProductPrice = 3098.39m, CategoryID = Category_Мебель?.CategoryID },
+                new Product { ProductName = "Груша", ProductDescription = "Можно скушать", ProductPrice = 247.07m, CategoryID = Category_Фрукты?.CategoryID },
+                new Product { ProductName = "Стол", ProductDescription = "Компьтерный стол", ProductPrice = 15999.98m, CategoryID = Category_Мебель?.CategoryID }
                 );
             context.SaveChanges();
         }
