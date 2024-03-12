@@ -21,11 +21,11 @@ public static class SeedData
         }
         if (!context.Products.Any())
         {
-            string[] CategoryName = { "Мебель", "Фрукты" };
+            string[] CategoryName = { "Мебель", "Фрукты","test" };
             if (!context.Categories.Any())
             {
                 //code for insert sample data to table Categories(categories of product)
-                context.Categories.AddRange(new Category { CategoryName = CategoryName[0] },new Category { CategoryName = CategoryName[1] });
+                context.Categories.AddRange(new Category { CategoryName = CategoryName[0] },new Category { CategoryName = CategoryName[1] }, new Category { CategoryName = CategoryName[2] });
                 context.SaveChanges();
             }
             //get id from table Categories

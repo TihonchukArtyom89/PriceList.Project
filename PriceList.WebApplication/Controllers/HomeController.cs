@@ -31,8 +31,17 @@ public class HomeController : Controller
     }
     public IActionResult Create()
     {
-        Product product = new();
-        return PartialView("ProductForm", product);
+        if(ModelState.IsValid)
+        {
+            Product product = new();
+            product.CategoryID = storeRepository.Categories.Where(c => c.CategoryName == "test").Select(c => c.CategoryID).FirstOrDefault();//временно пока не будет сделан выпадающий список с категориями продукта в форме создания нового продукта
+            //WriteLine("");
+            return PartialView("ProductForm", product);
+        }
+        else
+        {
+            return PartialView("ProductForm", new Product());
+        }
     }
     [HttpPost]
     public IActionResult Create(Product product)
