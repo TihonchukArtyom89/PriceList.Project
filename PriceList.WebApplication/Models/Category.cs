@@ -11,7 +11,6 @@ public class Category
     public long? CategoryID { get; set; }//ИД категории товара//уникальный,первичный ключ
     [DisplayName("Категория продукта")]
     [Required(ErrorMessage = "Category of product is required.")]
-    public string CategoryName { get; set; }=string.Empty;//название категории товара
-    [Required]
-    public Product Product { get; set; } = new();//навигационное св-во на таблицу продуктов(на зависимую сущность)
+    public string CategoryName { get; set; } = string.Empty;//название категории товара
+    public Product? Product { get; set; }// = new();//навигационное св-во на таблицу продуктов(на зависимую сущность)
 }

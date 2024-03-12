@@ -262,8 +262,7 @@ namespace PriceList.WebApplication.Migrations
 
             modelBuilder.Entity("PriceList.WebApplication.Models.Category", b =>
                 {
-                    b.Navigation("Product")
-                        .IsRequired();
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("PriceList.WebApplication.Models.OptionalParameter", b =>

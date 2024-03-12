@@ -12,8 +12,8 @@ using PriceList.WebApplication.Models;
 namespace PriceList.WebApplication.Migrations
 {
     [DbContext(typeof(PredpriyatieDbContext))]
-    [Migration("20240310083056_SomeChanges")]
-    partial class SomeChanges
+    [Migration("20240312062014_Initialv6")]
+    partial class Initialv6
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,23 @@ namespace PriceList.WebApplication.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("PriceList.WebApplication.Models.Category", b =>
+                {
+                    b.Property<long?>("CategoryID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("CategoryID"), 1L, 1);
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CategoryID");
+
+                    b.ToTable("Categories");
+                });
 
             modelBuilder.Entity("PriceList.WebApplication.Models.OptionalParameter", b =>
                 {
@@ -123,15 +140,15 @@ namespace PriceList.WebApplication.Migrations
 
             modelBuilder.Entity("PriceList.WebApplication.Models.Product", b =>
                 {
-                    b.Property<long>("ProductID")
+                    b.Property<long?>("ProductID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("ProductID"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("ProductID"), 1L, 1);
 
-                    b.Property<string>("ProductCategory")
+                    b.Property<long?>("CategoryID")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("bigint");
 
                     b.Property<string>("ProductDescription")
                         .IsRequired()
@@ -145,6 +162,9 @@ namespace PriceList.WebApplication.Migrations
                         .HasColumnType("decimal(8,2)");
 
                     b.HasKey("ProductID");
+
+                    b.HasIndex("CategoryID")
+                        .IsUnique();
 
                     b.ToTable("Products");
                 });
@@ -201,6 +221,17 @@ namespace PriceList.WebApplication.Migrations
                     b.Navigation("PriceListOptionalParameters");
                 });
 
+            modelBuilder.Entity("PriceList.WebApplication.Models.Product", b =>
+                {
+                    b.HasOne("PriceList.WebApplication.Models.Category", "Category")
+                        .WithOne("Product")
+                        .HasForeignKey("PriceList.WebApplication.Models.Product", "CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("PriceListPriceListProduct", b =>
                 {
                     b.HasOne("PriceList.WebApplication.Models.PriceListProduct", null)
@@ -229,6 +260,11 @@ namespace PriceList.WebApplication.Migrations
                         .HasForeignKey("ProductsProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("PriceList.WebApplication.Models.Category", b =>
+                {
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("PriceList.WebApplication.Models.OptionalParameter", b =>

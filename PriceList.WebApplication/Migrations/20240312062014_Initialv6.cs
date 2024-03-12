@@ -5,10 +5,23 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PriceList.WebApplication.Migrations
 {
-    public partial class Initialv2 : Migration
+    public partial class Initialv6 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    CategoryID = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.CategoryID);
+                });
+
             migrationBuilder.CreateTable(
                 name: "OptionalParameters",
                 columns: table => new
@@ -46,12 +59,18 @@ namespace PriceList.WebApplication.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProductDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProductCategory = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CategoryID = table.Column<long>(type: "bigint", nullable: false),
                     ProductPrice = table.Column<decimal>(type: "decimal(8,2)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.ProductID);
+                    table.ForeignKey(
+                        name: "FK_Products_Categories_CategoryID",
+                        column: x => x.CategoryID,
+                        principalTable: "Categories",
+                        principalColumn: "CategoryID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -163,6 +182,12 @@ namespace PriceList.WebApplication.Migrations
                 name: "IX_PriceListProducts_PriceListOptionalParametersOptionalParameterEntryID",
                 table: "PriceListProducts",
                 column: "PriceListOptionalParametersOptionalParameterEntryID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_CategoryID",
+                table: "Products",
+                column: "CategoryID",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -184,6 +209,9 @@ namespace PriceList.WebApplication.Migrations
 
             migrationBuilder.DropTable(
                 name: "PriceListOptionalParameters");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "OptionalParameters");

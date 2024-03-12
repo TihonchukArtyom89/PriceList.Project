@@ -21,10 +21,13 @@ public static class SeedData
         }
         if (!context.Products.Any())
         {
-            Category c1 = new(){ CategoryName = "Мебель" }; Category c2= new(){ CategoryName = "Фрукты" };
+            //Category c1 = , c2;
+            Category c1 = new() { CategoryID = 1, CategoryName = "Мебель" };
+            Category c2 = new() { CategoryID = 2, CategoryName = "Фрукты" };
             //fill Categories Table
             context.Categories.AddRange(c1, c2);
             //fill Products Table
+            WriteLine("\n\n!!!!!!!!!!!!!!!!!!!!!!!!!\n\n" + c1.CategoryID + "\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n" + c2.CategoryID);
             context.Products.AddRange(
                 new Product { ProductName = "Стул", ProductDescription = "Обычный стул", ProductPrice = 1547.04m, CategoryID = c1.CategoryID },
                 new Product { ProductName = "Яблоко", ProductDescription = "Красное,наливное", ProductPrice = 196.67m, CategoryID = c2.CategoryID },
@@ -33,8 +36,6 @@ public static class SeedData
                 new Product { ProductName = "Груша", ProductDescription = "Можно скушать", ProductPrice = 247.07m, CategoryID = c2.CategoryID },
                 new Product { ProductName = "Стол", ProductDescription = "Компьтерный стол", ProductPrice = 15999.98m, CategoryID = c1.CategoryID }
                 );
-            
-            
             context.SaveChanges();
         }
     }
