@@ -16,7 +16,7 @@ public class Product
     [Required(ErrorMessage = "Description of product is required.")]
     public string ProductDescription { get; set; } = string.Empty; //описание товара
     [Required]
-    public long? CategoryID { get; set; } //ИД категория товара
+    public long? CategoryID { get; set; } //ИД категория товара// внешний ключ
     public Category? Category { get; set; } //= new();//навигационное св-во на таблицу категорий(на главную сущность)
     [DisplayName("Цена продукта")]
     [Required(ErrorMessage = "Price of product is required.")]

@@ -161,8 +161,7 @@ namespace PriceList.WebApplication.Migrations
 
                     b.HasKey("ProductID");
 
-                    b.HasIndex("CategoryID")
-                        .IsUnique();
+                    b.HasIndex("CategoryID");
 
                     b.ToTable("Products");
                 });
@@ -199,13 +198,13 @@ namespace PriceList.WebApplication.Migrations
 
             modelBuilder.Entity("PriceList.WebApplication.Models.PriceListOptionalParameter", b =>
                 {
-                    b.HasOne("PriceList.WebApplication.Models.OptionalParameter", "OptionalParameters")
+                    b.HasOne("PriceList.WebApplication.Models.OptionalParameter", "OptionalParameter")
                         .WithMany("PriceListOptionalParameters")
                         .HasForeignKey("OptionalParameterID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("OptionalParameters");
+                    b.Navigation("OptionalParameter");
                 });
 
             modelBuilder.Entity("PriceList.WebApplication.Models.PriceListProduct", b =>
@@ -222,8 +221,8 @@ namespace PriceList.WebApplication.Migrations
             modelBuilder.Entity("PriceList.WebApplication.Models.Product", b =>
                 {
                     b.HasOne("PriceList.WebApplication.Models.Category", "Category")
-                        .WithOne("Product")
-                        .HasForeignKey("PriceList.WebApplication.Models.Product", "CategoryID")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -262,7 +261,7 @@ namespace PriceList.WebApplication.Migrations
 
             modelBuilder.Entity("PriceList.WebApplication.Models.Category", b =>
                 {
-                    b.Navigation("Product");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("PriceList.WebApplication.Models.OptionalParameter", b =>

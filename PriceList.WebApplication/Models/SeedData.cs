@@ -24,18 +24,14 @@ public static class SeedData
             string[] CategoryName = { "Мебель", "Фрукты" };
             if (!context.Categories.Any())
             {
-                //code for insert sample data to table Categories(categories of product)//корректно передать кириллицу надо
-                //int num = context.Database.ExecuteSqlRaw("insert into Categories (CategoryName) values ('" + CategoryName[0] + "'), ('" + CategoryName[1] + "')");
+                //code for insert sample data to table Categories(categories of product)
                 context.Categories.AddRange(new Category { CategoryName = CategoryName[0] },new Category { CategoryName = CategoryName[1] });
-                //WriteLine("\n\n\n\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n\n" + num + "\n\n\n\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n\n");
                 context.SaveChanges();
             }
             //get id from table Categories
             Category? Category_Мебель = context.Categories.Where(c => c.CategoryName == CategoryName[0]).FirstOrDefault();
             Category? Category_Фрукты = context.Categories.Where(c => c.CategoryName == CategoryName[1]).FirstOrDefault();
-            WriteLine("\n\n\n\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n\n" + Category_Мебель?.CategoryID+"\n----\n"+Category_Мебель?.CategoryName + "\n\n\n\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n\n");
-            WriteLine("\n\n\n\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n\n" + Category_Фрукты?.CategoryID + "\n----\n" + Category_Фрукты?.CategoryName + "\n\n\n\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n\n");
-            //fill Products Table
+            //fill Products Table with sample data
             context.Products.AddRange(
                 new Product { ProductName = "Стул", ProductDescription = "Обычный стул", ProductPrice = 1547.04m, CategoryID = Category_Мебель?.CategoryID },
                 new Product { ProductName = "Яблоко", ProductDescription = "Красное,наливное", ProductPrice = 196.67m, CategoryID = Category_Фрукты?.CategoryID },

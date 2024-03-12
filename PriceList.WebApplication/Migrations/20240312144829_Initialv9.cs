@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PriceList.WebApplication.Migrations
 {
-    public partial class Initialv6 : Migration
+    public partial class Initialv9 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -186,8 +186,7 @@ namespace PriceList.WebApplication.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryID",
                 table: "Products",
-                column: "CategoryID",
-                unique: true);
+                column: "CategoryID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
