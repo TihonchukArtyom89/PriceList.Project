@@ -19,11 +19,19 @@
                                 <span asp-validation-for="ProductName" class="text-danger"></span>
                             </div>
                             @* сделать выпадающий список с категориями(подгружаемыми из отдельной таблицы-частичное представление со списком категорий) *@
-@*                             <div class="form-group"> 
-                                <label asp-for="ProductCategory" class="control-label"></label>
-                                <input asp-for="ProductCategory" class="form-control" />
-                                <span asp-validation-for="ProductCategory" class="text-danger"></span>
+                            @*<div class="form-group">
+                            <label asp-for="ProductCategory" class="control-label"></label>
+                            <input asp-for="ProductCategory" class="form-control" />
+                            <span asp-validation-for="ProductCategory" class="text-danger"></span>
                             </div> *@
+                            <div class="form-group">
+                                <label asp-for="CategoryID" class="control-label"></label>
+                                <select asp-for="CategoryID" class="form-control">
+                                    <option value="">Please select</option>
+                                    @* сюда передать список категорий продукта как параметр вызова частичного представления *@
+                                    <partial name="CategoryList" model="Model." />
+                                </select>
+                            </div>
                             <div class="form-group">
                                 <label asp-for="ProductDescription" class="control-label"></label>
                                 <input asp-for="ProductDescription" class="form-control" />
@@ -45,6 +53,7 @@
         </div>
     </div>
 </div>
+
 @* @{
     Layout = null;
 }

@@ -1,0 +1,10 @@
+﻿@page
+@* @using static  PriceList.WebApplication.Views.Home.CategoryListModel *@
+
+@model IEnumerable<Category>
+@* @model CategoryListModel *@
+
+@foreach (Category c in Model ?? Enumerable.Empty<Category>())
+{
+    <option value="@c.CategoryID">@c.CategoryName</option>
+}

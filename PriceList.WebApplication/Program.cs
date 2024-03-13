@@ -6,10 +6,12 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<PredpriyatieDbContext>(opts => { opts.UseSqlServer(builder.Configuration["ConnectionStrings:PriceList.WebApplicationConnection"]);});
 builder.Services.AddScoped<IStoreRepository, EFStoreRepository>();
 builder.Services.AddScoped<IPredpriyatieRepository, EFPredpriyatieRepository>();
+builder.Services.AddRazorPages();
 var app = builder.Build();
 app.UseStaticFiles();
 app.MapControllerRoute("pagination","Products/Page{productPage}", new { Controller = "Home",  action = "Index" });
 app.MapDefaultControllerRoute();
+app.MapRazorPages();
 SeedData.EnsurePopulated(app);//fill db with sample data
 
 app.Run();
