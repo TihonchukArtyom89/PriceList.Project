@@ -31,23 +31,23 @@ public class HomeController : Controller
     }
     public IActionResult Create()
     {
-        if(ModelState.IsValid)
-        {
-            Product product = new();
-            product.CategoryID = storeRepository.Categories.Where(c => c.CategoryName == "test").Select(c => c.CategoryID).FirstOrDefault();//временно пока не будет сделан выпадающий список с категориями продукта в форме создания нового продукта
-            //WriteLine("");
-            return PartialView("ProductForm", product);
-        }
-        else
-        {
-            return PartialView("ProductForm", new Product());
-        }
+        return View();
     }
     [HttpPost]
     public IActionResult Create(Product product)
     {//write unit tests for this action
-        storeRepository.CreateProduct(product);
-        return RedirectToAction("Index","Home");
+     //storeRepository.CreateProduct(product);
+     //return RedirectToAction("Index","Home");
+        if (ModelState.IsValid)
+        {
+            product.CategoryID = storeRepository.Categories.Where(c => c.CategoryName == "test").Select(c => c.CategoryID).FirstOrDefault();//временно пока не будет сделан выпадающий список с категориями продукта в форме создания нового продукта
+            //WriteLine("");
+            return Content($"{product.ProductName}-{product.ProductDescription}-{product.CategoryID}-{product.ProductPrice}");
+        }
+        else
+        {
+            return View("Index");
+        }
     }
     //same view for create or edit product
     //for create we need call this action without parameter
