@@ -17,6 +17,7 @@ public class HomeController : Controller
 
     public ViewResult Index(int productPage = 1)
     {
+        ViewBag.Categories = storeRepository.Categories;
         //return View(_storeRepository.Products.OrderBy(p=>p.ProductID).Skip((productPage-1)*PageSize).Take(PageSize));
         return View(new ProductsListViewModels
         {
@@ -31,7 +32,8 @@ public class HomeController : Controller
     }
     public IActionResult Create()
     {
-        return View();
+        Product product = new();
+        return PartialView("ProductFrom",product);
     }
     [HttpPost]
     public IActionResult Create(Product product)
@@ -40,12 +42,16 @@ public class HomeController : Controller
      //return RedirectToAction("Index","Home");
         if (ModelState.IsValid)
         {
+            WriteLine("!!!!!!!!!!!!!!!!!!!!!!MODELISVALID!!!!!!!!!!!!!!!!!");
             product.CategoryID = storeRepository.Categories.Where(c => c.CategoryName == "test").Select(c => c.CategoryID).FirstOrDefault();//временно пока не будет сделан выпадающий список с категориями продукта в форме создания нового продукта
+            storeRepository.CreateProduct(product);
+            return RedirectToAction("Index","Home");
             //WriteLine("");
-            return Content($"{product.ProductName}-{product.ProductDescription}-{product.CategoryID}-{product.ProductPrice}");
+            //return Content($"{product.ProductName}-{product.ProductDescription}-{product.CategoryID}-{product.ProductPrice}");
         }
         else
         {
+            WriteLine("!!!!!!!!!!!!!!!!!!!!!!MODELISNOTVALID!!!!!!!!!!!!!!!!!");
             return View("Index");
         }
     }

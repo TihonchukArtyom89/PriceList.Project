@@ -7,11 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Home\CategoryList.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Views\Home\CategoryList.cshtml" />
     <None Include="wwwroot\lib\bootstrap\css\bootstrap-grid.css" />
     <None Include="wwwroot\lib\bootstrap\css\bootstrap-grid.css.map" />
     <None Include="wwwroot\lib\bootstrap\css\bootstrap-grid.min.css" />
@@ -166,13 +161,5 @@
 
 	<ItemGroup>
 		<Using Include="System.Console" Static="true" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <UpToDateCheckInput Remove="Views\Home\CategoryList.cshtml" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <_ContentIncludedByDefault Remove="Views\Home\CategoryList.cshtml" />
 	</ItemGroup>
 </Project>
