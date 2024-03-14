@@ -7,7 +7,6 @@ namespace PriceList.WebApplication.Models;
 public class Product
 {
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    [Required]
     public long? ProductID { get; set; } //ИД товара//уникальный,первичный ключ
     [DisplayName("Название продукта")]
     [Required(ErrorMessage ="Name of product is required.")]

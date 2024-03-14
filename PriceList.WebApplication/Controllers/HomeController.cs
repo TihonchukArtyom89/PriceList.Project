@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PriceList.WebApplication.Models;
 using PriceList.WebApplication.Models.ViewModels;
@@ -17,7 +18,7 @@ public class HomeController : Controller
 
     public ViewResult Index(int productPage = 1)
     {
-        ViewBag.Categories = storeRepository.Categories;
+        ViewBag.Categories = FillCategoriesDropdownList();
         //return View(_storeRepository.Products.OrderBy(p=>p.ProductID).Skip((productPage-1)*PageSize).Take(PageSize));
         return View(new ProductsListViewModels
         {
@@ -33,80 +34,31 @@ public class HomeController : Controller
     public IActionResult Create()
     {
         Product product = new();
-        return PartialView("ProductFrom",product);
+        return PartialView("ProductFrom", product);
     }
     [HttpPost]
     public IActionResult Create(Product product)
     {//write unit tests for this action
-     //storeRepository.CreateProduct(product);
-     //return RedirectToAction("Index","Home");
         if (ModelState.IsValid)
         {
             WriteLine("!!!!!!!!!!!!!!!!!!!!!!MODELISVALID!!!!!!!!!!!!!!!!!");
-            product.CategoryID = storeRepository.Categories.Where(c => c.CategoryName == "test").Select(c => c.CategoryID).FirstOrDefault();//временно пока не будет сделан выпадающий список с категориями продукта в форме создания нового продукта
             storeRepository.CreateProduct(product);
-            return RedirectToAction("Index","Home");
-            //WriteLine("");
-            //return Content($"{product.ProductName}-{product.ProductDescription}-{product.CategoryID}-{product.ProductPrice}");
+            return RedirectToAction("Index", "Home");
         }
         else
         {
-            WriteLine("!!!!!!!!!!!!!!!!!!!!!!MODELISNOTVALID!!!!!!!!!!!!!!!!!");
-            return View("Index");
+            return PartialView("ProductForm", product);
         }
     }
-    //same view for create or edit product
-    //for create we need call this action without parameter
-    //public async Task<IActionResult> CreateOrUpdate(long? id = 0)
-    //{
-    //    Product product;
-    //    if (id == 0)
-    //    {
-    //        product = new();
-    //    }
-    //    else
-    //    {
-    //        product = await storeRepository.Products.FirstOrDefaultAsync(p => p.ProductID == id) ?? new();
-    //        //product = await storeRepository.Products.FindAsync(id);
-    //    }
-    //    //return PartialView("ProductForm",newProduct);
-    //    return View("ProductForm", product);
-    //    //if (id == null)
-    //    //{
-    //    //    return NotFound();
-    //    //}
-    //    //else
-    //    //{      
-    //}
-    //[HttpPost]
-    //same view for create or edit product with post request
-    //for create we need call this action without parameter
-    //public async Task<IActionResult> CreateOrUpdate([Bind("ProductID,ProductName,ProductDescription,ProductCategory,ProductPrice")] Product product,long? id = 0 )
-    //{
-    //    if(ModelState.IsValid) 
-    //    {
-    //        if (id == 0)
-    //        {
-    //            await storeRepository.CreateProduct(product);
-    //        }
-    //        else
-    //        {
-    //            try
-    //            {
-    //                await storeRepository.SaveProduct(product);
-    //            }
-    //            catch(Exception ex)
-    //            {
-    //                WriteLine("Catched exception:\n" + ex.Message);
-    //                return BadRequest();
-    //            }
-    //        }
-    //        return View("ProductForm", product);
-    //    }
-    //    else
-    //    {
-    //        WriteLine("Model of Product class is not valid");
-    //        return BadRequest();
-    //    }             
-    //}
+    private List<SelectListItem> FillCategoriesDropdownList()
+    {
+        List<SelectListItem> categories = new();
+        categories.Add(new SelectListItem { Text = "Выберите из списка", Value = null });
+        List<Category> _categories = storeRepository.Categories.ToList();
+        foreach (Category c in _categories ?? new())
+        {
+            categories.Add(new SelectListItem { Text = c.CategoryName, Value = c.CategoryID.ToString() });
+        }
+        return categories;
+    }
 }

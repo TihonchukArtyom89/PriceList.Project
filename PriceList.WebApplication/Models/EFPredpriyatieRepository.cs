@@ -3,9 +3,9 @@
 public class EFPredpriyatieRepository:IPredpriyatieRepository
 {
     private PredpriyatieDbContext context;
-    public EFPredpriyatieRepository(PredpriyatieDbContext ctx)
+    public EFPredpriyatieRepository(PredpriyatieDbContext _context)
     {
-        context = ctx;
+        context = _context;
     }
 
     public IQueryable<PriceList> PriceLists => context.PriceLists;

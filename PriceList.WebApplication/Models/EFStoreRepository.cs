@@ -3,9 +3,9 @@
 public class EFStoreRepository: IStoreRepository
 {
     private PredpriyatieDbContext context;
-    public EFStoreRepository(PredpriyatieDbContext ctx)
+    public EFStoreRepository(PredpriyatieDbContext _context)
     {
-        context = ctx;
+        context = _context;
     }
     public IQueryable<Product> Products => context.Products;
     public IQueryable<Category> Categories => context.Categories;
