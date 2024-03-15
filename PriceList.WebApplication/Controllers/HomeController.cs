@@ -18,6 +18,7 @@ public class HomeController : Controller
 
     public ViewResult Index(int productPage = 1)
     {
+        //ViewBag.DataInPopUpNotValid = false;
         ViewBag.Categories = FillCategoriesDropdownList();
         //return View(_storeRepository.Products.OrderBy(p=>p.ProductID).Skip((productPage-1)*PageSize).Take(PageSize));
         return View(new ProductsListViewModels
@@ -41,13 +42,25 @@ public class HomeController : Controller
     {//write unit tests for this action
         if (ModelState.IsValid)
         {
-            WriteLine("!!!!!!!!!!!!!!!!!!!!!!MODELISVALID!!!!!!!!!!!!!!!!!");
             storeRepository.CreateProduct(product);
             return RedirectToAction("Index", "Home");
         }
         else
         {
-            return PartialView("ProductForm", product);
+            //ViewBag.DataInPopUpNotValid = true;
+            //ViewBag.NotValidDataInPopup = product;
+            //return RedirectToAction("Index", "Home");
+            //return View("Index", new ProductsListViewModels()
+            //{
+            //    Products = storeRepository.Products.OrderBy(p => p.ProductID).Skip((1 - 1) * PageSize).Take(PageSize),
+            //    PagingInfo = new PagingInfo
+            //    {
+            //        CurrentPage = 1,
+            //        ItemsPerPage = PageSize,
+            //        TotalItems = storeRepository.Products.Count()
+            //    }
+            //});////отображение новосозданной главной страницы 
+            return PartialView("ProductForm", product);//происходит отрисовка частичного представления как целого
         }
     }
     private List<SelectListItem> FillCategoriesDropdownList()

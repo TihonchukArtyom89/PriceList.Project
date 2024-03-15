@@ -1,6 +1,8 @@
 ﻿@model ProductsListViewModels
 
-
+@* @{
+    bool DataInPopUpNotValid = ViewBag.DataInPopUpNotValid;
+} *@
 
 <div class="mx-1">
     <h4 class="card-text "> ТОВАРЫ </h4>
@@ -15,3 +17,9 @@
 
  
 @await Html.PartialAsync("ProductForm",new Product())
+
+@* @if (DataInPopUpNotValid)
+{
+    Product p = ViewBag.NotValidDataInPopup;
+    @await Html.PartialAsync("ProductForm", p);
+} *@
