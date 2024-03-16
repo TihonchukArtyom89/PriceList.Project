@@ -32,39 +32,23 @@ public class HomeController : Controller
             }
         });
     }
-    //public IActionResult Create()
-    //{
-    //    Product product = new();
-    //    return PartialView("ProductFrom", product);
-    //}
+    public IActionResult Create()
+    {
+        Product product = new();
+        return PartialView("ProductFrom", product);
+    }
     [HttpPost]
     [ValidateAntiForgeryToken]
     public ActionResult Create(Product product)
     {//write unit tests for this action
         if (ModelState.IsValid)
         {
-            ModelState.Clear();
             storeRepository.CreateProduct(product);
             return RedirectToAction("Index", "Home");
         }
         else
         {
-            //ViewBag.DataInPopUpNotValid = true;
-            //ViewBag.NotValidDataInPopup = product;
-            //return RedirectToAction("Index", "Home");
-            //return View("Index", new ProductsListViewModels()
-            //{
-            //    Products = storeRepository.Products.OrderBy(p => p.ProductID).Skip((1 - 1) * PageSize).Take(PageSize),
-            //    PagingInfo = new PagingInfo
-            //    {
-            //        CurrentPage = 1,
-            //        ItemsPerPage = PageSize,
-            //        TotalItems = storeRepository.Products.Count()
-            //    }
-            //});////отображение новосозданной главной страницы с товарами без заполненного всплывающего окна
-            return PartialView("ProductForm", product);//происходит отрисовка частичного представления как целого с перезагрузкой страницы и без подключения стилей
-            //return View("Index");//отрисовка главной страницы без списка товаров
-            //return View("ProductForm", product);//отрисовка главной страницы без списка товаров
+            return PartialView("ProductForm", product);
         }
     }
     private List<SelectListItem> FillCategoriesDropdownList()
