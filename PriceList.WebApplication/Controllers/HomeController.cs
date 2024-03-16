@@ -32,16 +32,18 @@ public class HomeController : Controller
             }
         });
     }
-    public IActionResult Create()
-    {
-        Product product = new();
-        return PartialView("ProductFrom", product);
-    }
+    //public IActionResult Create()
+    //{
+    //    Product product = new();
+    //    return PartialView("ProductFrom", product);
+    //}
     [HttpPost]
-    public IActionResult Create(Product product)
+    [ValidateAntiForgeryToken]
+    public ActionResult Create(Product product)
     {//write unit tests for this action
         if (ModelState.IsValid)
         {
+            ModelState.Clear();
             storeRepository.CreateProduct(product);
             return RedirectToAction("Index", "Home");
         }
@@ -59,14 +61,18 @@ public class HomeController : Controller
             //        ItemsPerPage = PageSize,
             //        TotalItems = storeRepository.Products.Count()
             //    }
-            //});////отображение новосозданной главной страницы 
-            return PartialView("ProductForm", product);//происходит отрисовка частичного представления как целого
+            //});////отображение новосозданной главной страницы с товарами без заполненного всплывающего окна
+            return PartialView("ProductForm", product);//происходит отрисовка частичного представления как целого с перезагрузкой страницы и без подключения стилей
+            //return View("Index");//отрисовка главной страницы без списка товаров
+            //return View("ProductForm", product);//отрисовка главной страницы без списка товаров
         }
     }
     private List<SelectListItem> FillCategoriesDropdownList()
     {
-        List<SelectListItem> categories = new();
-        categories.Add(new SelectListItem { Text = "Выберите из списка", Value = null });
+        List<SelectListItem> categories = new()
+        {
+            new SelectListItem { Text = "Выберите из списка", Value = null }
+        };
         List<Category> _categories = storeRepository.Categories.ToList();
         foreach (Category c in _categories ?? new())
         {
