@@ -18,9 +18,7 @@ public class HomeController : Controller
 
     public ViewResult Index(int productPage = 1)
     {
-        //ViewBag.DataInPopUpNotValid = false;
         ViewBag.Categories = FillCategoriesDropdownList();
-        //return View(_storeRepository.Products.OrderBy(p=>p.ProductID).Skip((productPage-1)*PageSize).Take(PageSize));
         return View(new ProductsListViewModels
         {
             Products = storeRepository.Products.OrderBy(p => p.ProductID).Skip((productPage - 1) * PageSize).Take(PageSize),
@@ -39,8 +37,8 @@ public class HomeController : Controller
     }
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Create(Product product)
-    {//write unit tests for this action
+    public IActionResult Create(Product product)//write unit tests for this action
+    {   
         if (ModelState.IsValid)
         {
             storeRepository.CreateProduct(product);
