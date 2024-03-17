@@ -33,7 +33,7 @@ public class HomeController : Controller
     public IActionResult Create()
     {
         Product product = new();
-        return PartialView("ProductFrom", product);
+        return PartialView("AddProductFrom", product);
     }
     [HttpPost]
     [ValidateAntiForgeryToken]
@@ -46,7 +46,7 @@ public class HomeController : Controller
         }
         else
         {
-            return PartialView("ProductForm", product);
+            return PartialView("AddProductForm", product);
         }
     }
     private List<SelectListItem> FillCategoriesDropdownList()

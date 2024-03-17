@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace PriceList.WebApplication.Views.Home
 {
-    public class ProductFormModel : PageModel
+    public class AddProductFormModel : PageModel
     {
         public void OnGet()
         {
