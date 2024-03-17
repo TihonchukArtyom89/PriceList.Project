@@ -53,10 +53,10 @@ public class HomeController : Controller
     {
         List<SelectListItem> categories = new()
         {
-            new SelectListItem { Text = "Выберите из списка", Value = null }
+            new SelectListItem { Text = "Выберите из списка", Value = "" }
         };
         List<Category> _categories = storeRepository.Categories.ToList();
-        foreach (Category c in _categories ?? new())
+        foreach (Category c in _categories ?? new List<Category>())
         {
             categories.Add(new SelectListItem { Text = c.CategoryName, Value = c.CategoryID.ToString() });
         }
