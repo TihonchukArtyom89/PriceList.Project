@@ -3,7 +3,7 @@
 <div class="card card-primary m-1 p-1">
     <div class="bg-faded p-1">
         <h4>
-             @Model.ProductName
+            <a href="" class="tooltip-test" title="Подробнее об этом продукте" data-bs-toggle="modal" data-bs-target="#ViewProductForm">@Model.ProductName</a> @* ссылка на вызов всплывающего окна с информацией о товаре и с кнопкой закрытия *@
             <span class="badge rounded-pill bg-primary text-white" style="float:right">
                 <small>
                     @Model.ProductPrice.ToString("c")
@@ -19,3 +19,4 @@
         <button class="btn btn-warning mx-2" style="float:right"> <i class="fa-solid fa-pen"></i> Редактировать этот товар</button>
     </div>
 </div>
+@await Html.PartialAsync("ViewProductForm", Model)

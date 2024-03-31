@@ -1,0 +1,37 @@
+﻿@model Product
+
+<div class="modal fade" id="ViewProductForm" tabindex="-1" aria-labelledby="ViewProductFormLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="ViewProductFormLabel">ПОДРОБНАЯ ИНФОРМАЦИЯ О ПРОДУКТЕ</h1>
+                <button type="reset" onclick="resetValidation()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <label class="text-start fw-bold">ИД продукта:</label>
+                            <p class="text-end">@Model.ProductID</p>
+                        </div>
+                        <div class="row">
+                            <label class="text-start fw-bold">Название продукта:</label>
+                            <p class="text-end">@Model.ProductName</p>
+                        </div>
+                        <div class="row">
+                            <label class="text-start fw-bold">Описание продукта:</label>
+                            <p class="text-end">@Model.ProductDescription</p>
+                        </div>
+                        <div class="row">
+                            <label class="text-start fw-bold">Цена продукта:</label>
+                            <p class="text-end">@Model.ProductPrice</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="reset" onclick="resetValidation()" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
