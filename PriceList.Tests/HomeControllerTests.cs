@@ -69,4 +69,29 @@ public class HomeControllerTests
         Assert.Equal(5, pageIngo.TotalItems);
         Assert.Equal(2, pageIngo.TotalPages);
     }
+    [Fact]
+    public void Can_Add_Invalid_Product()
+    {
+        //Arrange
+        Product p1 = new() { ProductID = 1, ProductName = "P1",ProductDescription="Description 1",ProductPrice=2.9M, CategoryID = 3 };
+        Mock<IStoreRepository> mockStoreRepository = new();
+        HomeController homeController = new(mockStoreRepository.Object) { PageSize = 3 };
+        homeController.ModelState.AddModelError("CategoryID", "Required");
+        //Act
+        IActionResult response = homeController.Create(p1);     
+        //Assert
+        Assert.IsType<PartialViewResult>(response);
+    }
+    [Fact]
+    public void Can_Add_Valid_Product()
+    {
+        //Arrange
+        Product p1 = new() { ProductID = 1, ProductName = "P1", ProductDescription = "Description 1", ProductPrice = 2.9M, CategoryID = 3 };
+        Mock<IStoreRepository> mockStoreRepository = new();
+        HomeController homeController = new(mockStoreRepository.Object) { PageSize = 3 };
+        //Act
+        IActionResult response = homeController.Create(p1);
+        //Assert
+        Assert.IsType<RedirectToActionResult>(response);
+    }
 }
