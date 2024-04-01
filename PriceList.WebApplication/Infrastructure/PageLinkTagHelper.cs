@@ -8,8 +8,8 @@ using PriceList.WebApplication.Models.ViewModels;
 
 namespace PriceList.WebApplication.Infrastructure;
 
-[HtmlTargetElement("div",Attributes ="page-model")]
-public class PageLinkTagHelper:TagHelper
+[HtmlTargetElement("div", Attributes = "page-model")]
+public class PageLinkTagHelper : TagHelper
 {
     private IUrlHelperFactory urlHelperFactory;
     public PageLinkTagHelper(IUrlHelperFactory _urlHelperFactory)
@@ -18,28 +18,32 @@ public class PageLinkTagHelper:TagHelper
     }
     [ViewContext]
     [HtmlAttributeNotBound]
-    public ViewContext? ViewContext { get; set; }   
+    public ViewContext? ViewContext { get; set; }
     public PagingInfo? PageModel { get; set; }
     public string? PageAction { get; set; }
-    public bool PageClassesEnabled { get; set; }=false;
+    [HtmlAttributeName(DictionaryAttributePrefix = "pre-url-")]
+    public Dictionary<string, object> PageUrlValues { get; set; } = new();
+    public bool PageClassesEnabled { get; set; } = false;
     public string PageClass { get; set; } = string.Empty;
     public string PageClassNormal { get; set; } = string.Empty;
     public string PageClassSelected { get; set; } = string.Empty;
 
-    public override void Process(TagHelperContext context,TagHelperOutput tagHelperOutput)
+    public override void Process(TagHelperContext context, TagHelperOutput tagHelperOutput)
     {
-        if(ViewContext != null && PageModel != null)
+        if (ViewContext != null && PageModel != null)
         {
             IUrlHelper urlHelper = urlHelperFactory.GetUrlHelper(ViewContext);
             TagBuilder resultTag = new("div");
-            for(int i = 1; i <= PageModel.TotalPages;i++)
+            for (int i = 1; i <= PageModel.TotalPages; i++)
             {
                 TagBuilder tagLink = new("a");
-                tagLink.Attributes["href"] = urlHelper.Action(PageAction, new { productPage = i });
-                if(PageClassesEnabled) 
+                PageUrlValues["productPage"] = i;
+                tagLink.Attributes["href"] = urlHelper.Action(PageAction,PageUrlValues);
+                //tagLink.Attributes["href"] = urlHelper.Action(PageAction, new { productPage = i });
+                if (PageClassesEnabled)
                 {
                     tagLink.AddCssClass(PageClass);
-                    tagLink.AddCssClass(i==PageModel.CurrentPage ? PageClassSelected : PageClassNormal);
+                    tagLink.AddCssClass(i == PageModel.CurrentPage ? PageClassSelected : PageClassNormal);
                 }
                 tagLink.InnerHtml.Append(i.ToString());
                 resultTag.InnerHtml.AppendHtml(tagLink);
