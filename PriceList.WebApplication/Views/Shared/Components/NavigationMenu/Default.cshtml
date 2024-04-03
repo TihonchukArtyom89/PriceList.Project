@@ -1,0 +1,8 @@
+﻿@model IEnumerable<string>
+<div class="d-grid gap-2" id="productCategoryList">
+    <a class="btn btn-outline-secondary" asp-action="Index" asp-controller="Home" asp-route-category="">Всё</a>
+    @foreach(string c in Model ??Enumerable.Empty<string>())
+    {
+        <a class="btn btn-outline-secondary" asp-action="Index" asp-controller="Home" asp-route-category="@c" asp-route-productPage="1">@c</a>
+    }
+</div>
