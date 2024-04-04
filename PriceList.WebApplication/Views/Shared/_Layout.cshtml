@@ -19,14 +19,15 @@
         <div style="display:inline-block" class="mx-2"><a class="btn btn-secondary" asp-controller="Home" asp-action="Index">Товары</a></div>
         <div style="display:inline-block" class="mx-2"><a class="btn btn-secondary" asp-controller="PriceList" asp-action="ListOfPriceLists">Прайс листы</a></div>
     </div>
-    <div class="row m-1 p-1">
+    @RenderBody()
+@*     <div class="row m-1 p-1">
         <div id="categories" class="col-1">
             <vc:navigation-menu />
         </div>
         <div class="col-11">
             @RenderBody()
         </div>
-    </div>
+    </div> *@
     <div class="modal" role="dialog" tabindex="-1" id="form-modal">
         <div class="modal-dialog">
             <div class="modal-content">

@@ -12,7 +12,7 @@ public class NavigationMenuViewComponent : ViewComponent
     }
     public IViewComponentResult Invoke()
     {
-        ViewBag.SelectedCategory = RouteData?.Values["category"];
+        ViewBag.SelectedCategory = RouteData?.Values["category"];//pass value of category from route data
         return View(storeRepository.Categories.Select(c => c.CategoryName).OrderBy(c => c));
     }
 }

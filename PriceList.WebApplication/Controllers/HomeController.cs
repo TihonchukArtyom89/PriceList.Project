@@ -15,21 +15,6 @@ public class HomeController : Controller
     {
         storeRepository = _storeRepository;
     }
-
-    //public ViewResult Index(int productPage = 1)
-    //{
-    //    ViewBag.Categories = FillCategoriesDropdownList();
-    //    return View(new ProductsListViewModels
-    //    {
-    //        Products = storeRepository.Products.OrderBy(p => p.ProductID).Skip((productPage - 1) * PageSize).Take(PageSize),
-    //        PagingInfo = new PagingInfo
-    //        {
-    //            CurrentPage = productPage,
-    //            ItemsPerPage = PageSize,
-    //            TotalItems = storeRepository.Products.Count()
-    //        }
-    //    });
-    //}
     public ViewResult Index(string? category,int productPage = 1)
     {
         ViewBag.Categories = FillCategoriesDropdownList();

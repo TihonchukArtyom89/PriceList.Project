@@ -16,7 +16,7 @@ public class NavigationMenuViewComponentTests
 {
     //добавлять тесты для компонента представлений список категорий продуктов
     [Fact]
-    public void Dispalys_SelectedCategory()
+    public void Displays_Selected_Category()
     {
         //Arrange
         string selectedCategory = "Cat3";
@@ -47,7 +47,8 @@ public class NavigationMenuViewComponentTests
         };
         navCategoryList.RouteData.Values["category"] = selectedCategory;
         //Act
-        string? result = (string?)(navCategoryList.Invoke() as ViewComponentResult)?.ViewData?["SelectedCategory"];
+        string? result = (string?)(navCategoryList.Invoke() as ViewComponentResult)?.ViewData?["SelectedCategory"];//get null??
+
         //Assert
         Assert.Equal(selectedCategory, result);
     }

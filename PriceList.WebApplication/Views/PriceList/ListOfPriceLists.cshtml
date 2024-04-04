@@ -1,30 +1,39 @@
 ﻿@model ListOfPriceListsViewModels
 
-<div class="mx-1">
-    <h4 class="card-text"> ПРАЙС ЛИСТЫ </h4>
-    <button class="btn btn-primary mb-2"> <i class="fa-solid  fa-plus"></i> Добавить новый прайс лист</button>
+
+
+<div class="row m-1 p-1">
+    @* <div id="categories" class="col-1">
+        <vc:navigation-menu />
+        </div>*@
+    <div class="col-11">
+        <div class="mx-1">
+            <h4 class="card-text"> ПРАЙС ЛИСТЫ </h4>
+            <button class="btn btn-primary mb-2"> <i class="fa-solid  fa-plus"></i> Добавить новый прайс лист</button>
+        </div>
+        <table class="table table-bordered table-striped m-1">
+            <thead>
+                <tr>
+                    <th>ИД</th>
+                    <th>Название</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var line in Model?.PriceLists ?? Enumerable.Empty<PriceList>())
+                {//сделать частичное представление по аналогу с продакт саммари
+                    <tr>
+                        <td class="text-left">@line.PriceListID</td>
+                        <td class="text-right">@line.PriceListName (название ссылкой на страницу прайс листа со списком товаров в нём)</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="text-right"> </td>
+                    <td class="text-right"></td>
+                </tr>
+            </tfoot>
+        </table>
+        <div page-model="@Model?.PagingInfo" page-action="ListOfPriceLists" page-classes-enabled="true" page-class="btn" page-class-normal="btn-outline-dark" page-class-selected="btn-primary" class="btn-group pull-right m-1"></div>
+    </div>
 </div>
-<table class="table table-bordered table-striped m-1">
-    <thead>
-        <tr>
-            <th>ИД</th>
-            <th>Название</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var line in Model?.PriceLists ?? Enumerable.Empty<PriceList>())
-        {//сделать частичное представление по аналогу с продакт саммари
-            <tr>
-                <td class="text-left">@line.PriceListID</td>
-                <td class="text-right">@line.PriceListName (название ссылкой на страницу прайс листа со списком товаров в нём)</td>
-            </tr>
-        }
-    </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="3" class="text-right"> </td>
-            <td class="text-right"></td>
-        </tr>
-    </tfoot>
-</table>
-<div page-model="@Model?.PagingInfo" page-action="ListOfPriceLists" page-classes-enabled="true" page-class="btn" page-class-normal="btn-outline-dark" page-class-selected="btn-primary" class="btn-group pull-right m-1"></div>
