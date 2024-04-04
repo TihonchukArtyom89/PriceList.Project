@@ -19,6 +19,15 @@ public class HomeController : Controller
     {
         ViewBag.Categories = FillCategoriesDropdownList();
         Category? selectedCategory = storeRepository.Categories.Where(c=>c.CategoryName == category).FirstOrDefault() ?? null;
+        int totalItems = 0;
+        if(category == null)
+        {
+            totalItems = storeRepository.Products.Count();
+        }
+        else
+        {
+            totalItems = storeRepository.Products.Where(p => p.CategoryID == selectedCategory.CategoryID).Count();
+        }
         return View(new ProductsListViewModels
         {
             Products = storeRepository.Products
@@ -28,7 +37,7 @@ public class HomeController : Controller
             {
                 CurrentPage = productPage,
                 ItemsPerPage = PageSize,
-                TotalItems = storeRepository.Products.Count()
+                TotalItems = totalItems//category == null ? storeRepository.Products.Count() : storeRepository.Products.Where(p => p.CategoryID == selectedCategory.CategoryID).Count()
             },
             CurrentCategory=selectedCategory?.CategoryName
         });
